@@ -23,13 +23,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::any('/register', function() {
+Route::any('/register', function () {
     return redirect()->route('product.index');
 });
 
-Route::middleware(['auth'])->group(function() {
-    Route::get('/user', [UserController::class, 'index']);
+Route::middleware(['auth'])->group(function () {
     Route::resource('product', ProductController::class);
+
+    //Rota dos Usuarios
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/user/create', [UserController::class, 'create']);
+    Route::post('/user/store', [UserController::class, 'store']);
+    Route::get('/user/search', [UserController::class, 'search']);
 });

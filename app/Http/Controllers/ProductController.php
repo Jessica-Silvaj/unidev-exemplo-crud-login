@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         $product = new Product();
 
-        if($request->has('action') && $request->get('action') === 'search') {
+        if ($request->has('action') && $request->get('action') === 'search') {
             $products = $product->filterAll($request);
         } else {
             $products = $product->orderBy('created_at', 'desc')->paginate(10);
